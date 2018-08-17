@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>发现</title>
+<link rel="stylesheet" href="/css/app.css">
+<link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body ng-app="app" ng-controller="album" class="container text-center">
+	 <div class="container text-center" style="padding: 40px;" >
+	 	<div class="container text-center " style="width: 400px">
+		 	<div> 
+		 		<input type="text" class="form-control"  id="name" placeholder="请输入名称" > 
+		 		<a href="javascript:void(0);" class="btn btn-success" ng-click="">搜所</a>
+		 	</div>
+		 	<div class="main row">
+		 		<div>
+		 			<h1>相片列表 </h1>
+		 		</div>
+				<div  ng-repeat="a in list" class="col-xs-12 col-sm-6">
+					<a href="album.html">
+						<img src="{{a.imgurl}}">
+						<div>{{a.name}}</div>
+					</a>
+				</div>
+				<div><a href="javascript:void(0);" class="btn btn-success" ng-click="getPage(cp+1)">加载更多</a></div>
+		 	</div>
+		 	<div> <a href="photo.html">查看照片</a></div>
+		 </div>
+	  </div>	 
+</body>
+<script>
+var host="/data";     
+var app = angular.module('app', []);
+app.controller('album', function($scope,$http) {
+	$scope.cp=1;
+	$scope.list=[];//保存所有数据
+	$scope.getPage=function(p){
+		$scope.cp=p;
+		$http({
+		    method: 'GET',
+		    url:host+'/myList'
+		}).then(function successCallback(res) {
+			$scope.list=$scope.list.concat(res.data.data.list);
+		    }, function errorCallback(resp) {
+		        // 请求失败执行代码
+		});
+		/* var page={"code":"1","msg":"操作成功",
+				"data":{
+					pagesize:10,cpage:5,totoleSize:100,pagecount:10,
+					list:[//真实数据
+						{
+							id:1,
+							name:"出国旅游",
+							imgurl:"../static/Chrysanthemum.jpg"
+						},
+						{
+							id:2,
+							name:"自拍",
+							imgurl:"../static/Chrysanthemum.jpg"
+						},
+					]
+				}
+			}; */
+		
+	}
+	
+	$scope.getPage(1);
+});
+</script>
+</html>

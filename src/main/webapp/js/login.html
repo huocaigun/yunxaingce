@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登录</title>
+<link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body>
+	<div ng-app="myApp" ng-controller="formCtrl" class="container" style="padding: 40px;  text-align: center;">
+		<input type="button" value="登录" id="login" onclick="location='mylist.html'">
+		<input type="button" value="注册" id="zhuce" style="margin-left: 40px;">
+	</div>
+</body>
+<script>
+	var app = angular.module('myApp', []);
+	app.controller('formCtrl', function($scope) {
+	    $scope.firstname = "John";
+	});
+</script>
+
+</html>
